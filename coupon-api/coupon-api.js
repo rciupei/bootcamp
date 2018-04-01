@@ -4,6 +4,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 
 const config = require('./models/config');
+const users = require('./controllers/users')
 
 var app = express();
 
@@ -15,10 +16,13 @@ if (dev) app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+//for now
+var userDB = [];
 //================================================
 // Routes
 //================================================
 
+app.post('/users',users.createUser)
 
 // handle 404
 app.use(function(req, res, next) {
