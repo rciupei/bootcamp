@@ -12,5 +12,5 @@ function makeFunctionArray() {
 
 var functions = makeFunctionArray();
 
-functions[0]();
-// functions.forEach((x) => x());
+//functions[0]();
+functions.forEach((x) => x());

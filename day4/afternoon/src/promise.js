@@ -6,4 +6,4 @@ fetch('http://projects.jordanhayashi.com/echo')
 })
 .catch(function(err) {
     console.log(err);
-);
+});
