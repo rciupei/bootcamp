@@ -1,14 +1,34 @@
-firstName: {type: String, trim: true},
-lastName: {type: String, trim: true},
-classYear: Number,
-email: {type: String, unique: true, sparse: true, trim: true},
-phone: {type: String, unique: true, sparse: true},
-phoneProvider: {type: String, trim: true},
-interests: [Number],
-isAdmin: {type: Boolean, index: true},
-isSuperAdmin: {type: Boolean, index: true},
-hash: String,
-companyName: {type: String, trim: true},
-token: String,
-createdAt: 'createdDate',
-updatedAt: 'updatedDate'
+
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+var userSchema = new Schema({
+    // define schema here
+    
+    },
+    {
+        toObject: { getters: true },
+        // change name of mongoose default timestamps
+        timeStamps: {
+            createdAt: 'createdDate',
+            updatedAt: 'updatedDate'
+        }
+    }
+);
+
+userSchema.pre('save', function(callback) {
+    // run hook code
+    
+    callback();
+});
+
+
+// create any methods
+userSchema.methods.greet = function() {
+    console.log('hi!');
+};
+
+var User = mongoose.model('User', userSchema);
+
+module.exports = Coupon;
+
