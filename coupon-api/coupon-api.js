@@ -2,11 +2,14 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const config = require('./models/config');
 const users = require('./controllers/users')
 
 var app = express();
+
+mongoose.connect('localhost:5000');
 
 if (app.get('env') === 'development') var dev = true;
 
@@ -22,7 +25,9 @@ var userDB = [];
 // Routes
 //================================================
 
-app.post('/users',users.createUser)
+app.get('/users', users.getUsers);
+app.get('/users/:id', users.getUserById);
+app.post('/users', users.createUser);
 
 // handle 404
 app.use(function(req, res, next) {
@@ -30,17 +35,15 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+// another errorhandler
 
-// development error handler
-if (dev) {
-    app.use(function(err, req, res, next) {
-        console.log(err);
-        res.status(err.status || 500).send();
-    });
-}
-
-// production error handler
 app.use(function(err, req, res, next) {
+    console.log('oops');
+    next(err);
+});
+
+app.use(function(err, req, res, next) {
+    console.log(err);
     res.status(err.status || 500).send();
 });
 
